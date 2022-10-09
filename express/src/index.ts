@@ -1,7 +1,6 @@
 import express from 'express';
 
-import indexRouter from './routes';
-import rabbitmqTestRouter from './routes/rabbitmq-test';
+import rabbitmqPublishRoute from './routes/rabbitmq-publish';
 import RabbitmqServer from './rabbitmq-server';
 
 var app = express();
@@ -9,8 +8,7 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//app.use('/', indexRouter);
-app.use('/', rabbitmqTestRouter);
+app.use('/express', rabbitmqPublishRoute);
 
 // chamando os metodos necessarios para criar um consumer do rabbitmq
 const consumer = async () => {

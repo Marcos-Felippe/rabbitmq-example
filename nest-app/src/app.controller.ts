@@ -14,10 +14,8 @@ export class AppController {
 
   @Post('nest')
   async nest(@Req() request: Request) {
-    const server = new RabbitmqServer('amqp://admin:admin@localhost:5672');
-    await server.start();
-    //await server.publishInQueue('express', JSON.stringify(request.body));
-    await server.publishInExchange('node1', 'ex', JSON.stringify(request.body));
-    return request.body;
+    const message = JSON.stringify(request.body);
+
+    return this.appService.publish(message);
   }
 }
